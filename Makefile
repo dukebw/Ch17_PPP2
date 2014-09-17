@@ -3,9 +3,9 @@
 
 CXXFLAGS = -std=c++11 -Wall
 CXX = g++
-SOURCES = drill.cpp
+SOURCES = Ex3_to_lower.cpp
 OBJS = ${SOURCES:.cpp=.o}
-TARGETS = drill
+TARGETS = Ex3_to_lower
 
 $(TARGETS) : $(OBJS)
 	$(CXX) -o $(TARGETS) $(OBJS)

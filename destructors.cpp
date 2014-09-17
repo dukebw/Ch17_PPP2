@@ -13,9 +13,17 @@ struct C1 : B1 {
 	virtual ~C1() { std::cout << "C1 destructor\n"; } 	
 };
 
+class MC2 {
+public:
+	MC2() { std::cout << "MC2 constructor\n"; }
+	~MC2() { std::cout << "MC2 destructor\n"; }
+};
+
 struct C2 : B1 {
 	C2() { std::cout << "C2 constructor\n"; } 	
 	~C2() { std::cout << "C2 destructor\n"; } 	
+private:
+	MC2 mC2;
 };
 
 struct C3 : B1 {
