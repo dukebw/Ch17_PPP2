@@ -88,14 +88,23 @@ const Link* Link::advance(int n) const
 	return p;
 }
 
+Link* Link::find_start()
+{
+	if (lin == nullptr) return nullptr;
+	if (prev == nullptr) return this;
+	return link->prev->find_start();
+}
+
 void print_all(Link* p)
 {
-	std::cout << "{ ";
 	while (p) {
-		std::cout << p->value;
-		if (p=p->next()) std::cout << ", ";
+		std::cout << "Name: " << p->god_val->name << std::endl;
+		std::cout << "Vehicle: " << p->god_val->vehicle << std::endl;
+		std::cout << "Weapon: " << p->god_val->weapon << std::endl;
+		std::cout << "Mythology: " << mythology_name(p->god_val->mythol) 
+			<< std::endl;
+		if (p=p->next()) std::cout << std::endl;
 	}
-	std::cout << " }";
 }
 
 std::string mythology_name(const Mythology& mythol)

@@ -3,15 +3,15 @@
 
 CXXFLAGS = -std=c++11 -Wall
 CXX = g++
-SOURCES = Ex9_stack_dir.cpp
+SOURCES = linked_list.cpp Link.cpp
 OBJS = ${SOURCES:.cpp=.o}
-TARGETS = Ex9_stack_dir
+TARGETS = linked_list
 
 $(TARGETS) : $(OBJS)
 	$(CXX) -o $(TARGETS) $(OBJS)
 
 # A rule to build .o file out of a .cpp file
-%.o: %.cpp
+%.o: %.cpp Link.h
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 # A rule to clean all the intermediates and targets
