@@ -3,26 +3,32 @@
 
 int main()
 {
-	Link* norse_gods{new Link{"Thor", nullptr, nullptr}};
-	norse_gods = norse_gods->insert(new Link{"Odin"});
-	norse_gods = norse_gods->insert(new Link{"Freia"});
-	norse_gods = norse_gods->insert(new Link{"Zeus"});
+	God god_temp{God{"Thor", "A chariot pulled by two goats (that he eats and"
+		" resurrects", "Mountain-crushing hammer called Mjolnir", 
+		Mythology::Norse}};
+	Link* norse_gods{new Link{god_temp, nullptr, nullptr}};
+	god_temp = God{"Odin", "Eight-legged flying horse called Sleipnir", 
+		"Spear called Gungnir", Mythology::Norse};
+	norse_gods = norse_gods->add_ordered(new Link{god_temp});
+	god_temp = God{"Freia", "A chariot pulled by two cats", "A feathered cloak", 
+		Mythology::norse};
+	norse_gods = norse_gods->add_ordered(new Link{god_temp});
 
-	Link* greek_gods{new Link{"Hera", nullptr, nullptr}};
-	greek_gods = greek_gods->insert(new Link{"Athena"});
-	greek_gods = greek_gods->insert(new Link{"Mars"});
-	greek_gods = greek_gods->insert(new Link{"Poseidon"});
+	god_temp = God{"Zeus", "The Chariot of Zeus", "Thunderbolts", 
+		Mythology::Greek};
+	Link* greek_gods{new Link{god_temp, nullptr, nullptr}};
+	god_temp = God{"Athena", "None", "An extremely long spear", Mythology::Greek};
+	greek_gods = greek_gods->insert(new Link{god_temp});
+	god_temp = God{"Ares", "His war chariot", "A spear and helmet", 
+		Mythology::greek};
+	greek_gods = greek_gods->insert(new Link{god_temp});
+	god_temp = God{"Poseidon", "A chariot pulled by a winged hippocampus, or"
+		" horses that can ride on the sea itself", "A trident", 
+			Mythology::Greek};
+	greek_gods = greek_gods->insert(new Link{god_temp});
 
-	Link* p{greek_gods->find("Mars")};
-	if (p) p->value = "Ares";
-
-	Link* p2 = norse_gods->find("Zeus");
-	if (p) {
-		if (p2 == norse_gods) norse_gods = p2->next();
-		p2->erase();
-		greek_gods = greek_gods->insert(p2);
-	}
-
+	god_temp = God{"Osiris", "None", "A crook and flail", Mythology::Egyptian};
+	Link* egypt_gods{new Link{god_temp, nullptr, nullptr}};
 	print_all(norse_gods);
 	std::cout << '\n';
 

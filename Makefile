@@ -3,9 +3,9 @@
 
 CXXFLAGS = -std=c++11 -Wall
 CXX = g++
-SOURCES = Ex5_findx.cpp
+SOURCES = Ex9_stack_dir.cpp
 OBJS = ${SOURCES:.cpp=.o}
-TARGETS = Ex5_findx
+TARGETS = Ex9_stack_dir
 
 $(TARGETS) : $(OBJS)
 	$(CXX) -o $(TARGETS) $(OBJS)

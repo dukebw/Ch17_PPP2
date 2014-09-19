@@ -1,18 +1,30 @@
 // Header for Link class
 #include <iostream>
 
+enum class Mythology {
+	Greek, Norse, Egyptian
+};
+
+struct God {
+	std::string name, vehicle, weapon;
+	Mythology mythol;
+};
+
 class Link {
 public:
-	std::string value;
+	God god_val;
 
-	Link(const std::string& v, Link* p = nullptr, Link* s = nullptr)
-		:value{v}, prev{p}, succ{s} {}
+	Link(const God& g, Link* p = nullptr, Link* s = nullptr)
+		:God{g}, prev{p}, succ{s} {}
 
 	Link* insert(Link* n); // insert n before this object
 	Link* add(Link* n); // insert n after this object
 	Link* erase();
 	Link* find(const std::string& s);
 	const Link* find(const std::string& s) const; // find s in const list
+
+	// places its new element in its correct lexicographical position
+	Link* add_ordered(Link* n); // assumes already ordered
 
 	const Link* advance(int n) const;
 
@@ -23,4 +35,9 @@ private:
 	Link* succ;
 };
 
+bool operator>(const Link* a, const Link* b);
+
 void print_all(Link*);
+
+// returns mythology name as string
+std::string mythology_name(const Mythology mythol);
