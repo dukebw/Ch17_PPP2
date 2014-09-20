@@ -4,9 +4,9 @@
 int main()
 {
 	// norse gods
-	God god_temp{God{"Thor", "A chariot pulled by two goats (that he eats and"
+	God god_temp = God{"Thor", "A chariot pulled by two goats (that he eats and"
 		" resurrects", "Mountain-crushing hammer called Mjolnir", 
-		Mythology::Norse}};
+		Mythology::Norse};
 	Link* norse_gods{new Link{god_temp, nullptr, nullptr}};
 
 	god_temp = God{"Odin", "Eight-legged flying horse called Sleipnir", 
@@ -14,7 +14,7 @@ int main()
 	norse_gods = norse_gods->add_ordered(new Link{god_temp});
 	
 	god_temp = God{"Freia", "A chariot pulled by two cats", "A feathered cloak", 
-		Mythology::norse};
+		Mythology::Norse};
 	norse_gods = norse_gods->add_ordered(new Link{god_temp});
 
 	// greek gods
@@ -26,7 +26,7 @@ int main()
 	greek_gods = greek_gods->add_ordered(new Link{god_temp});
 
 	god_temp = God{"Ares", "His war chariot", "A spear and helmet", 
-		Mythology::greek};
+		Mythology::Greek};
 	greek_gods = greek_gods->add_ordered(new Link{god_temp});
 	god_temp = God{"Poseidon", "A chariot pulled by a winged hippocampus, or"
 		" horses that can ride on the sea itself", "A trident", 
@@ -38,15 +38,11 @@ int main()
 	Link* egypt_gods{new Link{god_temp, nullptr, nullptr}};
 
 	god_temp = God{"Ra", "The sun", "The power of creation", Mythology::Egyptian};
-	egypt_gods = greek_gods->add_ordered(new Link{god_temp});
+	egypt_gods = egypt_gods->add_ordered(new Link{god_temp});
 
 	god_temp = God{"Shu", "The wind", "Power to hold up the sky", 
 		Mythology::Egyptian};
-	egypt_gods = greek_gods->add_ordered(new Link{god_temp});
-
-	norse_gods = norse_gods->find_start();
-	greek_gods = greek_gods->find_start();
-	egypt_gods = egypt_gods->find_start();
+	egypt_gods = egypt_gods->add_ordered(new Link{god_temp});
 
 	print_all(norse_gods);
 	std::cout << '\n';

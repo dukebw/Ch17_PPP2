@@ -14,7 +14,10 @@ class Link {
 public:
 	// causing compile error? const God& can't convert to std::string?
 	Link(const God& g, Link* p = nullptr, Link* s = nullptr)
-		:god_val{g}, prev{p}, succ{s} {}
+		:prev{p}, succ{s} 
+	{
+		god_val = g;
+	}
 
 	Link* insert(Link* n); // insert n before this object
 	Link* add(Link* n); // insert n after this object
@@ -33,15 +36,16 @@ public:
 
 	Link* next() const { return succ; }
 	Link* previous() const { return prev; }
+
+	God god_val;
 private:
-	const God god_val;
 	Link* prev;
 	Link* succ;
 };
 
-bool operator>(const Link* a, const Link* b);
+bool operator>(const Link& a, const Link& b);
 
 void print_all(Link*);
 
 // returns mythology name as string
-std::string mythology_name(const Mythology mythol);
+std::string mythology_name(const Mythology& mythol);

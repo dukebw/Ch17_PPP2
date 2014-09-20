@@ -2,11 +2,9 @@
 #include <iostream>
 #include "Link.h"
 
-bool operator>(const Link* a, const Link* b)
+bool operator>(const Link& a, const Link& b)
 {
-	if (b == nullptr) return true;
-	if (a == nullptr) return false;
-	return (a->god_val->name > b->god_val->name) ? true : false;
+	return (a.god_val.name > b.god_val.name) ? true : false;
 }
 
 Link* Link::insert(Link* n) // insert n before this Link
@@ -43,7 +41,7 @@ Link* Link::find(const std::string& s)
 {
 	Link* p{this};
 	while (p) {
-		if (p->value == s) return p;
+		if (p->god_val.name == s) return p;
 		p = p->succ;
 	}
 	return nullptr;
@@ -53,19 +51,21 @@ const Link* Link::find(const std::string& s) const
 {
 	const Link* p{this};
 	while (p) {
-		if (p->value == s) return p;
+		if (p->god_val.name == s) return p;
 		p = p->succ;
 	}
 	return nullptr;
 }
 
-Link* add_ordered(Link* n) // assumes already ordered
+// bug with add_ordered
+Link* Link::add_ordered(Link* n) // assumes already ordered
 {
 	if (n == nullptr) return this;
 	if (this == nullptr) return n;
-	if (n > this) 
-		return (succ) ? succ::add_ordered(n) : add(n);
-	else return insert(n);
+	if (*n > *this)
+		(succ) ? succ->add_ordered(n) : add(n);
+	else insert(n);
+	return this->find_start();
 }
 
 // move n positions in list; return nullptr for "not found"
@@ -90,18 +90,18 @@ const Link* Link::advance(int n) const
 
 Link* Link::find_start()
 {
-	if (lin == nullptr) return nullptr;
+	if (this == nullptr) return nullptr;
 	if (prev == nullptr) return this;
-	return link->prev->find_start();
+	return this->prev->find_start();
 }
 
 void print_all(Link* p)
 {
 	while (p) {
-		std::cout << "Name: " << p->god_val->name << std::endl;
-		std::cout << "Vehicle: " << p->god_val->vehicle << std::endl;
-		std::cout << "Weapon: " << p->god_val->weapon << std::endl;
-		std::cout << "Mythology: " << mythology_name(p->god_val->mythol) 
+		std::cout << "Name: " << p->god_val.name << std::endl;
+		std::cout << "Vehicle: " << p->god_val.vehicle << std::endl;
+		std::cout << "Weapon: " << p->god_val.weapon << std::endl;
+		std::cout << "Mythology: " << mythology_name(p->god_val.mythol) 
 			<< std::endl;
 		if (p=p->next()) std::cout << std::endl;
 	}
