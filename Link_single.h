@@ -14,14 +14,13 @@ class Link {
 public:
 	// causing compile error? const God& can't convert to std::string?
 	Link(const God& g, Link* b = nullptr, Link* s = nullptr)
-		:begin{b}, succ{s} 
+		:succ{s} 
 	{
 		god_val = g;
 	}
 
-	Link* insert(Link* n); // insert n before this object
 	Link* add(Link* n); // insert n after this object
-	Link* erase();
+	Link* erase(const std::string& s);
 	Link* find(const std::string& s);
 	const Link* find(const std::string& s) const; // find s in const list
 
@@ -32,11 +31,9 @@ public:
 	const Link* advance(int n) const;
 
 	Link* next() const { return succ; }
-	Link* beginning() const { return begin; }
 
 	God god_val;
 private:
-	Link* begin;
 	Link* succ;
 };
 

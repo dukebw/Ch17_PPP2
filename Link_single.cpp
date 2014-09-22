@@ -7,34 +7,38 @@ bool operator>(const Link& a, const Link& b)
 	return (a.god_val.name > b.god_val.name) ? true : false;
 }
 
-Link* Link::insert(Link* n) // insert n before this Link
-{
-	if (n == nullptr) return this;
-	if (this == nullptr) return n;
-	n->succ = this;	// this comes after n
-	if (prev) prev->succ = n;
-	n->prev = prev;
-	prev = n;
-	return n;
-}
-
 Link* Link::add(Link* n) // insert n after this Link; return n
 {
 	if (n == nullptr) return this;
 	if (this == nullptr) return n;
-	n->prev = this; // this comes before n
-	if (succ) succ->prev = n;
-	n->succ = succ;
+	if (succ) n->succ = succ;
 	succ = n;
 	return n;
 }
 
-Link* Link::erase() // remove *p from list; return p's successor
+// returns nullptr if nothing is erased, successor of erased link if successor
+// exists, and nullptr if last link is erased
+Link* Link::erase(const std::string& s)
 {
 	if (this == nullptr) return nullptr;
-	if (succ) succ->prev = prev;
-	if (prev) prev->succ = succ;
-	return succ;
+	if (god_val.name == s) {
+		if (succ) {
+			Link* begin{nullptr};
+			begin = succ;
+			succ = nullptr;
+			return begin;
+		}
+		return nullptr;
+	}	
+	else if (succ) {
+		if (succ->god_val.name == s) {
+			succ = succ->succ;
+			if (succ) return succ;
+			return nullptr;
+		}
+		else return succ->erase(s);
+	}
+	else return nullptr;
 }
 
 Link* Link::find(const std::string& s)
@@ -57,15 +61,25 @@ const Link* Link::find(const std::string& s) const
 	return nullptr;
 }
 
-// bug with add_ordered
 Link* Link::add_ordered(Link* n) // assumes already ordered
 {
 	if (n == nullptr) return this;
 	if (this == nullptr) return n;
-	if (*n > *this)
-		(succ) ? succ->add_ordered(n) : add(n);
-	else insert(n);
-	return this->find_start();
+	if (*n > *this) {
+		if (succ) {
+			if (*succ > *n) {
+				n->succ = succ;
+				succ = n;
+				return n;
+			}
+			else return succ->add_ordered(n);
+		}
+		else return add(n);
+	}
+	else {
+		n->succ = this;
+		return n;
+	}
 }
 
 // move n positions in list; return nullptr for "not found"
