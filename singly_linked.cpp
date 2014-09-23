@@ -12,7 +12,7 @@ int main()
 
 	god_temp = God{"Odin", "Eight-legged flying horse called Sleipnir", 
 		"Spear called Gungnir", Mythology::Norse};
-	norse_gods = norse_gods->add_ordered(new Link{god_temp});
+	norse_gods->add_ordered(new Link{god_temp});
 	
 	god_temp = God{"Freia", "A chariot pulled by two cats", "A feathered cloak", 
 		Mythology::Norse};
@@ -32,18 +32,18 @@ int main()
 	god_temp = God{"Poseidon", "A chariot pulled by a winged hippocampus, or"
 		" horses that can ride on the sea itself", "A trident", 
 			Mythology::Greek};
-	greek_gods = greek_gods->add_ordered(new Link{god_temp});
+	greek_gods->add_ordered(new Link{god_temp});
 
 	// Egyptian gods
 	god_temp = God{"Osiris", "None", "A crook and flail", Mythology::Egyptian};
 	Link* egypt_gods{new Link{god_temp, nullptr, nullptr}};
 
 	god_temp = God{"Ra", "The sun", "The power of creation", Mythology::Egyptian};
-	egypt_gods = egypt_gods->add_ordered(new Link{god_temp});
+	egypt_gods->add_ordered(new Link{god_temp});
 
 	god_temp = God{"Shu", "The wind", "Power to hold up the sky", 
 		Mythology::Egyptian};
-	egypt_gods = egypt_gods->add_ordered(new Link{god_temp});
+	egypt_gods->add_ordered(new Link{god_temp});
 
 	print_all(norse_gods);
 	std::cout << '\n';

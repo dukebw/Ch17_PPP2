@@ -3,15 +3,15 @@
 
 CXXFLAGS = -std=c++11 -Wall
 CXX = g++
-SOURCES = linked_list.cpp Link.cpp
+SOURCES = singly_linked.cpp Link_single.cpp
 OBJS = ${SOURCES:.cpp=.o}
-TARGETS = linked_list
+TARGETS = singly_linked
 
 $(TARGETS) : $(OBJS)
 	$(CXX) -o $(TARGETS) $(OBJS)
 
 # A rule to build .o file out of a .cpp file
-%.o: %.cpp Link.h
+%.o: %.cpp Link_single.h
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 # A rule to clean all the intermediates and targets

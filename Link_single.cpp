@@ -87,26 +87,14 @@ const Link* Link::advance(int n) const
 {
 	const Link* p{this};
 	if (p == nullptr) return nullptr;
+	if (n < 0) return nullptr;
 	if (n > 0) {
 		while (n--) {
 			if (p->succ == nullptr) return nullptr;
 			p = p->succ;
 		}
 	}
-	else if (n < 0) {
-		while (n++) {
-			if (p->prev == nullptr) return nullptr;
-			p = p->prev;
-		}
-	}
 	return p;
-}
-
-Link* Link::find_start()
-{
-	if (this == nullptr) return nullptr;
-	if (prev == nullptr) return this;
-	return this->prev->find_start();
 }
 
 void print_all(Link* p)
